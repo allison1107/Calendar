@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+
+    <!-- icon -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        body {
+            font-family: '微軟正黑體';
+        }
+
+        tr,
+        th,
+        td {
+            border-collapse: collapse;
+            border: 1px rgb(206, 206, 206) solid;
+        }
+
+        table {
+            border: 3px rgb(52, 58, 64) solid;
+            border-radius: 20px;
+            table-layout: fixed;
+            text-align: center;
+            /* height: 80vh; */
+            vertical-align: bottom;
+        }
+
+        thead {
+            font-size: 12px;
+        }
+
+
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            color: rgb(88, 133, 133);
+        }
+
+
+        tr>td:first-child {
+            font-weight: bolder;
+            color: rgb(88, 133, 133);
+        }
+
+
+        td {
+            height: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container w-75 text-center mt-5">
+
+        <h1 id="Year">
+
+        </h1>
+        <div class="row">
+
+            <div class="col-1"><button class="btn btn-info" onclick="lastMonth()">◀</button></div>
+
+
+
+
+            <div class="col-10">
+                <table id="myTableID" class="table">
+                    <thead class="thead-dark">
+
+                        <tr>
+                            <th>SUNDAY</th>
+                            <th>MONDAY</th>
+                            <th>TUESDAY</th>
+                            <th>WEDNESDAY</th>
+                            <th>THURSDAY</th>
+                            <th>FRIDAY</th>
+                            <th>SATURDAY</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-1"><button class="btn btn-info" onclick="nextMonth()">▶</button></div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script>
+        var now = new Date;
+        today = now.getDate();
+        var d = new Date()
+        var firstDay = new Date(d.getFullYear(), d.getMonth() + 1, 1);   //每個月第一天 
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);  //每個月最後一天
+        var fday = firstDay.getDate();
+        var lday = lastDay.getDate();
+        var myTable = document.getElementById('myTableID');
+        var myrow = 1;
+
+
+        for (i = fday; i <= lday; i++) {
+            d.setDate(i);
+            var myWeek = d.getDay();
+
+            if (myWeek == 0 && i != 1) {
+                myrow = myrow + 1
+            }
+
+            myTable.rows[myrow].cells[myWeek].innerHTML = i;
+
+            bgColor();
+
+        }
+
+
+
+
+
+
+
+
+        function lastMonth() {
+            d = new Date(d.getFullYear(), d.getMonth() + -1, 1);
+            var firstDay = new Date(d.getFullYear(), d.getMonth() + 1, 1);   //每個月第一天 
+            var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);  //每個月最後一天
+            var fday = firstDay.getDate();
+            var lday = lastDay.getDate();
+            var myrow = 1;
+            var myTable = document.getElementById('myTableID');
+
+
+            for (a = 1; a <= 6; a++) {
+                for (b = 0; b <= 6; b++) {
+                    myTable.rows[a].cells[b].innerText = "";
+                    myTable.rows[a].cells[b].style.backgroundColor = "white";
+                }
+            }
+
+            for (i = fday; i <= lday; i++) {
+
+
+                d.setDate(i);
+                var myWeek = d.getDay();
+
+                if (myWeek == 0 && i != 1) {
+                    myrow = myrow + 1
+                }
+
+                myTable.rows[myrow].cells[myWeek].innerHTML = i;
+
+                var monthsInEng = ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                document.getElementById("Year").innerText = `${monthsInEng[d.getMonth()]}   ${d.getFullYear()}  `;
+
+
+                if (i == today && now.getFullYear() == d.getFullYear() && now.getMonth() == d.getMonth()) {
+                    myTable.rows[myrow].cells[myWeek].style.backgroundColor = ' rgb(192, 228, 228)';
+                }
+
+            }
+        }
+
+
+
+
+
+        function nextMonth() {
+            d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+            var firstDay = new Date(d.getFullYear(), d.getMonth() + 1, 1);   //每個月第一天 
+            var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);  //每個月最後一天
+            var fday = firstDay.getDate();
+            var lday = lastDay.getDate();
+            var myrow = 1;
+            var myTable = document.getElementById('myTableID');
+
+            for (a = 1; a <= 6; a++) {
+                for (b = 0; b <= 6; b++) {
+                    myTable.rows[a].cells[b].innerText = "";
+                    myTable.rows[a].cells[b].style.backgroundColor = "white";
+                }
+            }
+
+            for (i = fday; i <= lday; i++) {
+
+
+                d.setDate(i);
+                var myWeek = d.getDay();
+
+                if (myWeek == 0 && i != 1) {
+                    myrow = myrow + 1
+                }
+
+                myTable.rows[myrow].cells[myWeek].innerHTML = i;
+
+                var monthsInEng = ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                document.getElementById("Year").innerText = `${monthsInEng[d.getMonth()]}   ${d.getFullYear()}  `;
+
+
+                if (i == today && now.getFullYear() == d.getFullYear() && now.getMonth() == d.getMonth()) {
+                    myTable.rows[myrow].cells[myWeek].style.backgroundColor = ' rgb(192, 228, 228)';
+                }
+            }
+        }
+
+
+        function bgColor() {
+            var now = new Date;
+            today = now.getDate();
+            if (i == today && now.getFullYear() == d.getFullYear() && now.getMonth() == d.getMonth()) {
+                myTable.rows[myrow].cells[myWeek].style.backgroundColor = ' rgb(192, 228, 228)';
+            }
+        }
+
+        var monthsInEng = ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        document.getElementById("Year").innerText = `${monthsInEng[d.getMonth()]}   ${d.getFullYear()}  `;
+
+    </script>
+
+</body>
+
+</html>
